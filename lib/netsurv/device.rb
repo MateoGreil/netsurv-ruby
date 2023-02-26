@@ -54,8 +54,8 @@ module NetSurv
       response_header = @socket.recv(20)
       return nil if response_header.nil? || response_header.length < 20
 
-      response_packet = Packet.new(coded: response_header)
-      response = @socket.recv(response_packet.len_data)
+      response_header_packet = Packet.new(coded: response_header)
+      response = @socket.recv(response_header_packet.len_data)
       response = response.slice(0..(response.index("\n") - 1))
 
       JSON.parse(response)
