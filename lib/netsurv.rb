@@ -2,7 +2,9 @@
 
 require 'json'
 require 'socket'
+require 'digest/md5'
 
+require_relative 'netsurv/password_hash'
 require_relative 'netsurv/packet'
 require_relative 'netsurv/device'
 require_relative 'netsurv/devices/camera'

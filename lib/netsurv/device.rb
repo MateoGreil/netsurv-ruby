@@ -2,6 +2,8 @@
 
 module NetSurv
   # Handle all camera functions
+  PASSWORD_HASH_CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+
   class Device
     def initialize(protocol: :tcp)
       raise 'Protocol not handled' if protocol != :tcp
@@ -23,7 +25,7 @@ module NetSurv
                       {
                         "EncryptType": 'MD5',
                         "LoginType": 'DVRIP-Web',
-                        "PassWord": password,
+                        "PassWord": NetSurv::PasswordHash.digest(password),
                         "UserName": @user = user
                       })
       return false if response.nil? || response['Ret'] != 100
@@ -37,8 +39,8 @@ module NetSurv
                       {
                         "EncryptType": 'MD5',
                         "LoginType": 'DVRIP-Web',
-                        "NewPassWord": new_password,
-                        "PassWord": old_password,
+                        "NewPassWord": NetSurv::PasswordHash.digest(new_password),
+                        "PassWord": NetSurv::PasswordHash.digest(old_password),
                         "SessionID": "0x#{@session.to_s(16).rjust(8, '0')}",
                         "UserName": @user
                       })
