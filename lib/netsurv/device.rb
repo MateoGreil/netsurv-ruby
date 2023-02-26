@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NetSurv
   # Handle all camera functions
   class Device
