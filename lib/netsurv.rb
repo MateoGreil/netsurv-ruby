@@ -1,12 +1,11 @@
+require 'json'
+require 'socket'
+
+require_relative 'netsurv/packet'
+require_relative 'netsurv/device'
+require_relative 'netsurv/devices/camera'
+
 module NetSurv
-
-  ROOT = __dir__
-
-  require 'json'
-  require 'socket'
-  autoload :Device, "#{::NetSurv::ROOT}/netsurv/device"
-  autoload :Camera, "#{ROOT}/netsurv/camera"
-
   PORT = { tcp: 34_567, udp: 34_568 }.freeze
   CODES = {
     login: 1000,
@@ -70,6 +69,4 @@ module NetSurv
     607 => 'Configuration does not exist',
     608 => 'Configuration parsing error'
   }.freeze
-  PACKET_HEADER_FORMAT = 'CCx2IIx2S_I'.freeze
-  PACKET_TAIL_FORMAT = "\x0a\x00".freeze
 end

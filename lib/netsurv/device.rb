@@ -47,29 +47,18 @@ module NetSurv
       end
     end
 
-    def send(message, data)
-      @socket.write(packet(message, data))
+    def send(message_code, data)
+      packet = NetSurv::Packet.new(message_code:, data:, session: @session, packet_count: @packet_count).encode
+      @socket.write(packet)
 
       response_header = @socket.recv(20)
       return nil if response_header.nil? || response_header.length < 20
 
-      (_head, _version, @session, _sequence_number, _msgid, len_data) = response_header.unpack(PACKET_HEADER_FORMAT)
-      response = @socket.recv(len_data)
+      response_packet = Packet.new(coded: response_header)
+      response = @socket.recv(response_packet.len_data)
       response = response.slice(0..(response.index("\n") - 1))
 
       JSON.parse(response)
-    end
-
-    def packet(code, data)
-      data = data.to_json
-      [
-        255,
-        0,
-        @session,
-        @packet_count,
-        code,
-        data.length + 2
-      ].pack(PACKET_HEADER_FORMAT) + data + PACKET_TAIL_FORMAT
     end
   end
 end
