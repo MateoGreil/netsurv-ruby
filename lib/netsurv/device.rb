@@ -3,7 +3,6 @@
 module NetSurv
   # Handle all camera functions
   class Device
-
     def initialize(protocol: :tcp)
       raise 'Protocol not handled' if protocol != :tcp
 
