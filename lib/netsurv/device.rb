@@ -49,12 +49,25 @@ module NetSurv
       true
     end
 
+    def disable_cloud
+      set_info('NetWork.Nat', { "NatEnable": false })
+    end
+
     private
+
+    def set_info(name, data)
+      set(1040, name, data)
+    end
+
+    def set(message_code, name, data)
+      send(message_code, { "Name": name, "SessionID": "0x#{@session.to_s(16).rjust(8, '0')}", "#{name}": data })
+    end
 
     def keep_alive
       response = send(CODES[:keep_alive], { "Name": 'KeepAlive', "SessionID": "0x#{@session.to_s(16).rjust(8, '0')}" })
 
       if response.nil?
+        puts 'dead.'
         @socket.close
       else
         puts 'alive !'
