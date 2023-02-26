@@ -48,18 +48,6 @@ module NetSurv
 
       true
     end
-    # def changePasswd(self, newpass="", oldpass=None, user=None):
-    #     data = self.send(
-    #         self.QCODES["ModifyPassword"],
-    #         {
-    #             "EncryptType": "MD5",
-    #             "NewPassWord": self.sofia_hash(newpass),
-    #             "PassWord": oldpass or self.password,
-    #             "SessionID": "0x%08X" % self.session,
-    #             "UserName": user or self.user,
-    #         },
-    #     )
-    #     return data["Ret"] in self.OK_CODES
 
     private
 
