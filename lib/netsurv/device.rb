@@ -24,13 +24,40 @@ module NetSurv
                         "EncryptType": 'MD5',
                         "LoginType": 'DVRIP-Web',
                         "PassWord": password,
-                        "UserName": user
+                        "UserName": @user = user
                       })
       return false if response.nil? || response['Ret'] != 100
 
       keep_alive
       true
     end
+
+    def update_password(old_password, new_password)
+      response = send(CODES[:update_password],
+                      {
+                        "EncryptType": 'MD5',
+                        "LoginType": 'DVRIP-Web',
+                        "NewPassWord": new_password,
+                        "PassWord": old_password,
+                        "SessionID": "0x#{@session.to_s(16).rjust(8, '0')}",
+                        "UserName": @user
+                      })
+      return false if response.nil? || response['Ret'] != 100
+
+      true
+    end
+    # def changePasswd(self, newpass="", oldpass=None, user=None):
+    #     data = self.send(
+    #         self.QCODES["ModifyPassword"],
+    #         {
+    #             "EncryptType": "MD5",
+    #             "NewPassWord": self.sofia_hash(newpass),
+    #             "PassWord": oldpass or self.password,
+    #             "SessionID": "0x%08X" % self.session,
+    #             "UserName": user or self.user,
+    #         },
+    #     )
+    #     return data["Ret"] in self.OK_CODES
 
     private
 
