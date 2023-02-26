@@ -3,9 +3,8 @@
 module NetSurv
   # Handle NetSurv Packet
   class Packet
-
-    HEADER_FORMAT = 'CCx2IIx2S_I'.freeze
-    TAIL_FORMAT = "\x0a\x00".freeze
+    HEADER_FORMAT = 'CCx2IIx2S_I'
+    TAIL_FORMAT = "\x0a\x00"
 
     attr_accessor :len_data
 
