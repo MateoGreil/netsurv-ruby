@@ -1,5 +1,5 @@
 module NetSurv
-  # This is the camera class : it handle all camera functions
+  # Handle all camera functions
   class Device
 
     def initialize(protocol: :tcp)

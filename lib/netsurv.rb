@@ -4,6 +4,7 @@ module NetSurv
 
   require 'json'
   require 'socket'
+  autoload :Device, "#{::NetSurv::ROOT}/netsurv/device"
   autoload :Camera, "#{ROOT}/netsurv/camera"
 
   PORT = { tcp: 34_567, udp: 34_568 }.freeze
