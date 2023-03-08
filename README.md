@@ -1,6 +1,6 @@
 # netsurv-ruby
 
-Ruby implementation of the sofiactl / netsurv protocol
+Ruby implementation client of the sofiactl / netsurv protocol
 
 
 Other project like this one :
