@@ -1,3 +1,5 @@
+# PROJECT ABORTED
+
 # netsurv-ruby
 
 Ruby implementation client of the sofiactl / netsurv protocol
